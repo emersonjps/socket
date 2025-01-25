@@ -10,12 +10,15 @@ const socket = io('http://localhost:3000', {
 document.getElementById('joinRoomButton')?.addEventListener('click', joinRoom);
 document.getElementById('sendMessageButton')?.addEventListener('click', sendMessage);
 
+let room = '';
+
 function joinRoom() {
     const roomName = document.getElementById('roomName').value;
 
     if (roomName) {
       alert(`Você entrou na sala: ${roomName}`);
-      document.getElementById('roomName').value = '';
+      room = roomName
+      socket.emit('join room', roomName);
     } else {
       alert('Por favor, insira o nome da sala.');
     }
@@ -36,7 +39,7 @@ function sendMessage() {
   const message = messageInput.value;
 
   if (message) {
-    socket.emit('chat message', message);
+    socket.emit('chat message', message, room);
 
     const messageElement = document.createElement('div');
     messageElement.className = 'message user';

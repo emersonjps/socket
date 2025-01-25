@@ -3,6 +3,7 @@ import { join, dirname } from 'path';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { fileURLToPath } from 'url';
+import e from 'express';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -20,8 +21,18 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    socket.on('chat message', (msg) => {
-        socket.broadcast.emit('chat message', msg);
+
+    
+    socket.on('chat message', (msg, room) => {
+        if (room) {
+            socket.broadcast.to(room).emit('chat message', msg);
+        } else {
+            socket.broadcast.emit('chat message', msg);
+        }
+    });
+
+    socket.on('join room', (room) => {
+        socket.join(room);
     });
 
     socket.on('teste', callback => {
