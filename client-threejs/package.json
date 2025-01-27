@@ -1,0 +1,18 @@
+{
+  "name": "client-threejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "nvm use 22 && npx vite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io-client": "^4.8.1",
+    "three": "^0.172.0",
+    "uuid": "^11.0.5"
+  }
+}
